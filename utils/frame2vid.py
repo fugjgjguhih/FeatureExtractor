@@ -3,7 +3,7 @@ import pickle
 import cv2
 from tqdm import tqdm
 from sklearn.model_selection import  train_test_split
-mydir ='./video'
+mydir ='/mnt/disk_1/xiangwei/LL/video'
 dirpaths=[]
 vid_n=[]
 ttt = []
