@@ -12,7 +12,7 @@ import torch.nn as nn
 import argparse
 import  pickle
 import gc
-from utils
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--fpath', default='/mnt/disk_1/xiangwei/LL/frame')
 parser.add_argument('--spath', default='/mnt/disk_1/xiangwei/LL/SWIN_Feature')
