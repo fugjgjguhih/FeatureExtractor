@@ -15,10 +15,11 @@ import  pickle
 parser = argparse.ArgumentParser()
 parser.add_argument('--fpath', default='/mnt/disk_1/xiangwei/LL/frame')
 parser.add_argument('--spath', default='/mnt/disk_1/xiangwei/LL/SWIN_Feature')
+parser.add_argument('--scale', type=int default=8)
 args = parser.parse_args()
 checkpoint='/mnt/disk_1/xiangwei/TransRAC-main/pretrained/swin_tiny_patch244_window877_kinetics400_1k.pth'
 videop = '/mnt/disk_1/xiangwei/LL/video'
-scale=16
+scale=args.scale
 feature_dim=1024
 
 

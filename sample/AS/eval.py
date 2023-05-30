@@ -93,7 +93,7 @@ def segment_bars(save_path, *labels):
     num_pics = len(labels)
     color_map = plt.get_cmap('seismic')
     # color_map =
-    fig = plt.figure(figsize=(15, num_pics * 1.5))
+   # fig = plt.figure(figsize=(15, num_pics * 1.5))
  
     barprops = dict(aspect='auto', cmap=color_map,
                     interpolation='nearest', vmin=0, vmax=20)
@@ -142,18 +142,14 @@ def segment_bars_with_confidence(save_path, confidence, *labels):
  
  
 def func_eval(dataset, recog_path, file_list):
+    gts={}
     with open(file_list, 'rb') as f:
-        ls = pickle.load(f)
-    with open('anno_dict.pkl', 'rb') as f:
-        gts = pickle.load(f)
-    list_of_videos = []
-    for vid in ls:
-        if vid in gts:
-            list_of_videos.append(vid)
+            gts = pickle.load(f)
+    list_of_videos= list(gts.keys())
     gt_contents = [gts[vid][-1] for vid in list_of_videos]
     lss = []
     for vid in list_of_videos:
-        ss = vid[-2] + '_' + str(vid[-1])+'.mp4'
+        ss = vid.split('.')[-2]+'.mp4'
         lss.append(ss)
     list_of_videos = lss
 
@@ -164,18 +160,8 @@ def func_eval(dataset, recog_path, file_list):
     total = 0
     edit = 0
     actions_dict = {
-        'Required element 1': 0,
-        'Required element 2': 1,
-        'Required element 3': 2,
-        'Required element 4': 3,
-        'Required element 5': 4,
-        'Acrobatic movements': 5,
-        'Cadence action': 6,
-        'Free': 7,
-        'Upper': 8,
-        'Lower': 9,
-        'Float': 10,
-        'None': 11
+        'None': 0,
+        'Act': 1,
     }
     index2dict=dict(zip(actions_dict.values(),actions_dict.keys()))
     for idx,vid in enumerate(list_of_videos):
@@ -195,7 +181,7 @@ def func_eval(dataset, recog_path, file_list):
                 rec.append(recog_content[i])
             i+=1
         gt_content=gt_contents[idx]
-        gt_content=[index2dict[value-1] for value in gt_content ]
+        gt_content=[index2dict[value] for value in gt_content ]
         recog_content = rec
         for i in range(len(gt_content)):
             total += 1

@@ -14,15 +14,16 @@ def get_parser():
     #[AS]
     parser.add_argument('--batch_size', default=1, type=int, help='batch size')
     # parser.add_argument('--action', default='train')
-    parser.add_argument('--action', default='predict')
+    parser.add_argument('--action', default='train')
     parser.add_argument('--num_layer', type=int, default=1, help='number of encoder layers')
     parser.add_argument('--linea_dim', type=int, default=256, help='dimension of query and key')
     parser.add_argument('--attn_drop', type=float, default=0.1, help='drop prob of attention layer')
-
+    parser.add_argument('--goat', type=int, default=2)
+    parser.add_argument('--num_epochs', type=int, help='number of training epochs', default=150)
     parser.add_argument('--gcn_layers', type=int, default=1, help='number of gcn layers')
     parser.add_argument('--split',type=str,default='3')
     # [BASIC]
-    parser.add_argument('--num_epochs', type=int, help='number of training epochs', default=200)
+    
     parser.add_argument('--train_batch_size', type=int, help='batch size for training phase', default=20)
     parser.add_argument('--test_batch_size', type=int, help='batch size for test phase', default=6)
     parser.add_argument('--seed', type=int, help='manual seed', default=42)
@@ -96,9 +97,9 @@ def get_parser():
     parser.add_argument('--launcher', choices=['none', 'pytorch', 'slurm'], default='none', help='job launcher')
     parser.add_argument('--local_rank', type=int, default=0)
 
-    parser.add_argument('--goat', type=int, default=0)
+
     parser.add_argument("--date", help="today", type=str, default='0804')
-    parser.add_argument('--model', default='ASFormer')
+    parser.add_argument('--model', default='MS_TCN++')
 
     parser.add_argument('--dataset', default="breakfast")
     parser.add_argument('--model_dir', default='models')
@@ -185,7 +186,7 @@ def get_parser():
                         help='select stage # to save embedding (-1: last stage)')
     parser.add_argument('--num_frame_video_embedding', default=50, type=int,
                         help='number of sample frames per video to store embedding')
-    parser.add_argument('--feature', default='I3D')
+    parser.add_argument('--feature', default='Swin')
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)

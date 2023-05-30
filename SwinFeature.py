@@ -15,12 +15,13 @@ import gc
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--fpath', default='/mnt/disk_1/xiangwei/LL/frame')
-parser.add_argument('--spath', default='/mnt/disk_1/xiangwei/LL/SWIN_Feature')
+parser.add_argument('--spath', default='/mnt/disk_1/xiangwei/LL/SWIN_Feature2')
+parser.add_argument('--scale', type=int default=8)
 args = parser.parse_args()
 checkpoint='/mnt/disk_1/xiangwei/TransRAC-main/pretrained/swin_tiny_patch244_window877_kinetics400_1k.pth'
 videop = '/mnt/disk_1/xiangwei/LL/video'
 Swin_arch='t'
-scale=16
+scale=args.scale
 feature_dim=768
 if Swin_arch=='l':
     feature_dim=1536
@@ -75,7 +76,8 @@ if not os.path.exists(save_dir):
 print(os.environ["CUDA_VISIBLE_DEVICES"])
 for fold in folders:
     video_list = os.listdir(os.path.join(path,fold))
-    feature_path = os.path.join(save_dir,fold)
+    # feature_path = os.path.join(save_dir,fold)
+    feature_path = save_dir
     if not os.path.exists(feature_path):
         os.makedirs(feature_path)
     for vname in tqdm(video_list):

@@ -57,15 +57,19 @@ if args.dataset == "50salads":
 # ====== Load files ====== #
 vid_list_file = "train_split.pkl"
 vid_list_file_tst = "test_split.pkl"
-feature_dim = 1024
-if args.feature=='BP':
-    feature_dim=768
+if args.feature == 'BP':
+    features_dim=768
     features_path = "./data/" + args.dataset + "/features/"
-elif args.feature=='swin':
-    feature_dim=1536
-    features_path = '/mnt/disk_1/xiangwei/SWIN_Feature/'
+elif args.feature =='Swin':
+    features_dim=768
+    features_path = './data/SWIN_Feature/'
 else:
-    features_path = '/mnt/disk_1/xiangwei/I3D_Feat/'
+    features_path = './I3D_Feat/'
+if args.action =="train":
+    gt_path = "./annontion/trainannoted.pkl"
+elif args.action =="predict":
+    gt_path = "./annontion/testannoted.pkl"
+valid_path = "./annontion/validannoted.pkl"
 vid_list_file_target=vid_list_file_tst
 gt_path = "anno_dict.pkl"
 
@@ -80,19 +84,9 @@ if not os.path.exists(model_dir):
 if not os.path.exists(results_dir):
     os.makedirs(results_dir)
 
-actions_dict = {
-    'Required element 1': 0,
-    'Required element 2': 1,
-    'Required element 3': 2,
-    'Required element 4': 3,
-    'Required element 5': 4,
-    'Acrobatic movements': 5,
-    'Cadence action': 6,
-    'Free': 7,
-    'Upper': 8,
-    'Lower': 9,
-    'Float': 10,
-    'None': 11
+actions_dict={
+'None':0,
+'Act':1
 }
 print(os.environ["CUDA_VISIBLE_DEVICES"])
 
